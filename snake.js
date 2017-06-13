@@ -12,6 +12,8 @@ var snake = [[snakex,snakey]];
 var snakeTail = 1;
 var food;
 var preFood;
+var direction;
+var preDirection;
 
 
 window.onload = function(){
@@ -54,10 +56,34 @@ function game(){
 
   ctx.fillStyle="#13dd13";
   food = ctx.fillRect(preFood[0],preFood[1],20,20);
-  //placeholder for when player gets food removes food and makes food presence false
 
+  //snake movement
+  switch (direction) {
+    case "left":
+      preDirection = direction;
+      snakex = snakex-20;
+      break;
+    case "up":
+      preDirection = direction;
+      snakey = snakey-20;
+      break;
+    case "right":
+      preDirection = direction;
+      snakex = snakex+20;
+      break;
+    case "down":
+      preDirection = direction;
+      snakey = snakey+20;
+      break;
+    default:
+
+  }
+  snakeMemory();
+  snakeGrow();
 
 }
+
+//placeholder for when player gets food removes food and makes food presence false
 function snakeGrow(){
   if(snakex == preFood[0] && snakey == preFood[1]){
     foodReady = false;
@@ -123,31 +149,27 @@ function keyPush(evt) {
   switch(evt.keyCode) {
     case 37:
       snakeMemory();
-      snakex = snakex-20;
+      direction = "left"
       console.log('left');
       snakeGrow();
-      console.log(snake);
       break;
     case 38:
       snakeMemory();
-      snakey = snakey-20;
+      direction = "up"
       console.log('up');
       snakeGrow();
-      console.log(snake);
       break;
     case 39:
       snakeMemory();
-      snakex = snakex +20
+      direction = "right"
       console.log('right');
       snakeGrow();
-      console.log(snake);
       break;
     case 40:
       snakeMemory();
-      snakey = snakey +20;
+      direction = "down"
       console.log('down');
       snakeGrow();
-      console.log(snake);
       break;
   }
 }
