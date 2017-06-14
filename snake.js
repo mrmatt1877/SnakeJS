@@ -27,6 +27,7 @@ window.onload = function(){
 
 
 function game(){
+  console.log(snakeTail);
   //draw the board and then the snake each time
   ctx.fillStyle = "#2386ab";
   ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -105,13 +106,13 @@ function snakeGrow(){
 //drawing the snake
 function draw(){
 
-  if(snakex > width) {
+  if(snakex > width - 20) {
     snakex = 0;
   }
   if(snakex < 0){
     snakex = width-20;
   }
-  if(snakey > height) {
+  if(snakey > height - 20) {
     snakey = 0;
   }
   if(snakey < 0){
@@ -123,12 +124,12 @@ function draw(){
   //ctx.fillStyle = "#2386ab";
   //ctx.fillRect(snake[snake.length-2][0],snake[snake.length-2][1],20,20)
   ctx.fillStyle="#23cce5";
-  ctx.fillRect(snake[0][0],snake[0][1],20,20);
+  ctx.fillRect(snake[0][0],snake[0][1],19,19);
 
   if(snakeTail>1){
     for (var i = 1; i < snakeTail; i++) {
       ctx.fillStyle="#23cce5";
-      ctx.fillRect(snake[i][0],snake[i][1],20,20);
+      ctx.fillRect(snake[i][0],snake[i][1],19,19);
     }
   }
 }
