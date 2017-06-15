@@ -1,0 +1,17 @@
+h1 {
+  text-align: center;
+  font-size: 5vh;
+}
+h2 {
+  text-align: center;
+  font-size: 3.25vh;
+  color: #c97133;
+}
+
+#canvas-container {
+  width: 100%;
+  text-align: center;
+}
+#myCanvas {
+  display:inline;
+}

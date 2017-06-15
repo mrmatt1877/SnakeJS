@@ -2,9 +2,8 @@
 var canvas;
 var ctx;
 
-
-var width = Math.round(window.innerWidth / 20) * 20 - 100;
-var height = Math.round(window.innerHeight / 20) * 20 - 100;
+var width = Math.round(window.innerWidth / 40) * 20 - 100;
+var height = Math.round(window.innerHeight / 40) * 20 - 100;
 var foodReady = false;
 var snakex = 240;
 var snakey = 400;
@@ -14,20 +13,23 @@ var food;
 var preFood;
 var direction;
 var preDirection;
+var score;
 
 
 window.onload = function(){
   canvas = document.getElementById("myCanvas");
   ctx = canvas.getContext("2d");
-  canvas.width = Math.round(window.innerWidth / 20) * 20 - 100;
-  canvas.height = Math.round(window.innerHeight / 20) * 20 - 100;
+  canvas.width = Math.round(window.innerWidth / 40) * 20 - 100;
+  canvas.height = Math.round(window.innerHeight / 40) * 20 - 100;
+
+  score = document.getElementById("score")
 
   setInterval(game,1000/15);
 }
 
 
 function game(){
-  console.log(snakeTail);
+  score.innerHTML = "Score: " + snakeTail;
   //draw the board and then the snake each time
   ctx.fillStyle = "#2386ab";
   ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -77,10 +79,11 @@ function game(){
       snakey = snakey+20;
       break;
     default:
-
   }
+
   snakeMemory();
   snakeGrow();
+  ouroboros();
 
 }
 
@@ -92,16 +95,6 @@ function snakeGrow(){
     snakeTail++;
   };
 }
-
-//maping snake start
-/*function snakeStart(){
-  console.log(snake);
-  for (var i = 1; i < 1; i++) {
-    snake.push([(snake[snake.length-1][0] + 20), snakey]);
-    ctx.fillStyle="#23cce5";
-    ctx.fillRect(snake[i][0],snake[i][1],20,20);
-  }
-};*/
 
 //drawing the snake
 function draw(){
@@ -121,8 +114,7 @@ function draw(){
 
   snake[0][0] = snakex;
   snake[0][1] = snakey;
-  //ctx.fillStyle = "#2386ab";
-  //ctx.fillRect(snake[snake.length-2][0],snake[snake.length-2][1],20,20)
+
   ctx.fillStyle="#23cce5";
   ctx.fillRect(snake[0][0],snake[0][1],19,19);
 
@@ -134,6 +126,14 @@ function draw(){
   }
 }
 
+function ouroboros() {
+  for (var i = 1; i < snake.length; i++) {
+    if( snakex == snake[i][0] && snakey == snake[i][1]){
+      snake = [snake.shift()];
+      snakeTail = 1;
+    }
+  }
+}
 
 //keeping track of previous moves
 function snakeMemory(){
@@ -144,33 +144,33 @@ function snakeMemory(){
     }
   }
 }
-//listening for button presses and then drawing the new snake
+//listening for button presses
 document.addEventListener("keydown",keyPush);
 function keyPush(evt) {
   switch(evt.keyCode) {
     case 37:
-      snakeMemory();
-      direction = "left"
+      if (preDirection != "right") {
+        direction = "left"
+      }
       console.log('left');
-      snakeGrow();
       break;
     case 38:
-      snakeMemory();
-      direction = "up"
+      if (preDirection != "down") {
+        direction = "up"
+      }
       console.log('up');
-      snakeGrow();
       break;
     case 39:
-      snakeMemory();
-      direction = "right"
+      if (preDirection != "left") {
+        direction = "right"
+      }
       console.log('right');
-      snakeGrow();
       break;
     case 40:
-      snakeMemory();
-      direction = "down"
+      if (preDirection != "up") {
+        direction = "down"
+      }
       console.log('down');
-      snakeGrow();
       break;
   }
 }
